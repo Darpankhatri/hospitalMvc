@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/web/_LayoutPage1.cshtml";
+}
+
+<main>
+
+    <!-- Start Page Banner Area -->
+    <div class="page-banner-area bg-16 pt-100">
+        <div class="container">
+            <div class="page-banner-content">
+                <h2>Products</h2>
+                <ul>
+                    <li>
+                        <a href="/Index">
+                            <i class="ri-home-8-line"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <span>Products</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner Area -->
+    <!-- End Products Area -->
+    <div class="products-area ptb-100">
+        <div class="container">
+
+            <div class="row justify-content-center product-add-here">
+                
+                //insert product
+            </div>
+        </div>
+    </div>
+    <!-- Start Products Area -->
+
+
+</main>
+
+<script>
+    $(document).ready(function () {
+        console.log("here");
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: "http://127.0.0.1:8000/api/products",
+            data: {
+            },
+            success: function (response) {
+
+                $('.product-add-here').html(response.body);
+            }
+        });
+    });
+
+
+</script>

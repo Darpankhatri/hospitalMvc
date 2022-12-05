@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/web/images/favicon.png">
+    <link href="~/web/css/animate.min.css" rel="stylesheet" />
+    <link href="~/web/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/web/css/dark-mode.css" rel="stylesheet" />
+    <link href="~/web/css/flaticon.css" rel="stylesheet" />
+    <link href="~/web/css/meanmenu.min.css" rel="stylesheet" />
+    <link href="~/web/css/odometer.min.css" rel="stylesheet" />
+    <link href="~/web/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/web/css/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/web/css/remixicon.css" rel="stylesheet" />
+    <link href="~/web/css/responsive.css" rel="stylesheet" />
+    <link href="~/web/css/style.css" rel="stylesheet" />
+    <link href="~/web/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
+
+    <a href="~/web/fonts/flaticonf8fb.eot"></a>
+    <a href="~/web/fonts/flaticonf8fb.ttf"></a>
+    <a href="~/web/fonts/flaticonf8fb.woff"></a>
+    <a href="~/web/fonts/flaticonf8fb.woff2"></a>
+    <a href="~/web/fonts/remixicondf6d.eot"></a>
+    <a href="~/web/fonts/remixicondf6d.ttf"></a>
+    <a href="~/web/fonts/remixicondf6d.woff"></a>
+    <a href="~/web/fonts/remixicondf6d.woff2"></a>
+
+    <script src="~/web/js/ajaxchimp.min.js"></script>
+    <script src="~/web/js/appear.min.js"></script>
+    <script src="~/web/js/bootstrap.bundle.min.js"></script>
+    <script src="~/web/js/contact-form-script.js"></script>
+    <script src="~/web/js/custom.js"></script>
+    <script src="~/web/js/form-validator.min.js"></script>
+    <script src="~/web/js/jquery.min.js"></script>
+    <script src="~/web/js/jspdf.debug.js"></script>
+    <script src="~/web/js/meanmenu.min.js"></script>
+    <script src="~/web/js/odometer.min.js"></script>
+    <script src="~/web/js/owl.carousel.min.js"></script>
+    <script src="~/web/js/swiper-bundle.min.js"></script>
+    <script src="~/web/js/wow.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+</head>
+<body>
+    <!-- header Start -->
+    <!-- Start Preloader Area -->
+    <!-- <div class="preloader">
+        <div class="lds-ripple">
+            <div class="preloader-container">
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal-1"></div>
+                <div class="petal-1"></div>
+                <div class="petal-1"></div>
+                <div class="ball"></div>
+            </div>
+        </div>
+    </div> -->
+    <!-- End Preloader Area -->
+    <!-- Start Header Area -->
+    <div class="top-header-area bg-color-091c47">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <ul class="header-left-content">
+                        <li>
+                            <span>Phone:</span>
+                            <a href="tel:1-885-665-2022">1-885-665-2022</a>
+                        </li>
+                        <li>
+                            <span>Email:</span>
+                            <a href="https://templates.envytheme.com/cdn-cgi/l/email-protection#4f262129200f2d2a3726612c2022">
+                                <span class="__cf_email__"
+                                      data-cfemail="e881868e87a88a8d9081c68b8785">[email&#160;protected]</span>
+                            </a>
+                        </li>
+                        <li>
+                            <span>Mon-Sat:</span>
+                            8:00AM - 7:00PM
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <ul class="header-right-content">
+
+                        <input type="hidden" id="sec-token" value="@ViewBag.token" />
+
+                        @if (@ViewBag.token == "0")
+                        {
+                            <li>
+                                <i class="ri-user-3-line"></i>
+                                @Html.ActionLink("Login", "User_Login", "Index")
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="/Index/Cart"><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i></a>
+
+                            </li>
+                            <li>
+                                <a href="javascript:void();" class="user-logout-btn"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Area -->
+    <!-- Start Navbar Area -->
+    <div class="navbar-area">
+        <div class="mobile-responsive-nav">
+            <div class="container">
+                <div class="mobile-responsive-menu">
+                    <div class="logo">
+                        <a href="index.php">
+                            <img src="~/web/images/logo.png" class="main-logo" alt="logo">
+                            <img src="~/web/images/white-logo.png" class="white-logo" alt="logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="desktop-nav">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="index.php">
+                        <img src="~/web/images/logo.png" class="main-logo" alt="logo">
+                        <img src="~/web/images/white-logo.png" class="white-logo" alt="logo">
+                    </a>
+
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav m-auto">
+                            <li class="nav-item">
+                                @Html.ActionLink("Home", "Index", "Index", new { @class = "nav-link border-style" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("About Us", "About", "Index", new { @class = "nav-link border-style" })
+                            </li>
+
+                            <li class="nav-item">
+                                @Html.ActionLink("Product", "Product", "", new { @class = "nav-link border-style" })
+                            </li>
+
+
+                            <li class="nav-item">
+                                @Html.ActionLink("Contact", "Contact", "Index", new { @class = "nav-link border-style" })
+                            </li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <!-- End Navbar Area -->
+    <!-- header End -->
+    <div>
+        @RenderBody()
+    </div>
+
+    <!-- Footer Start -->
+    <!-- Start Footer Area -->
+    <div class="footer-area bg-color-f1f5f8 pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <a href="index.php" class="logo">
+                            <img src="~/web/images/logo.png" class="main-logo" alt="logo">
+                            <img src="~/web/images/white-logo.png" class="white-logo" alt="logo">
+                        </a>
+                        <p>
+                            Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin
+                            molestie.
+                        </p>
+                        <h4>177 Devon Lane Miami, MK 3355</h4>
+                        <ul class="info">
+                            <li>
+                                <span>EMAIL US:</span>
+                                <a href="https://templates.envytheme.com/cdn-cgi/l/email-protection#177e7971785775726f7e3974787a">
+                                    <span class="__cf_email__"
+                                          data-cfemail="3950575f56795b5c4150175a5654">[email&#160;protected]</span>
+                                </a>
+                            </li>
+                            <li>
+                                <span>CALL US:</span>
+                                <a href="tel:1-885-665-2022">1-885-665-2022</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h3>Subscribe Our Newsletter</h3>
+
+                        <form class="iiiii">
+                            <!--csrf-->
+                            <input type="email" class="form-control add-subscribe" placeholder="Email address" name="email" required
+                                   autocomplete="off" />
+
+                            <button class="default-btn btn-add-subscribe" type="button">
+                                Submit now
+                            </button>
+
+                        </form>
+
+                        <ul class="socila-link">
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <img src="~/web/images/svg-icon/facebook.svg" alt="Image">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <img src="~/web/images/svg-icon/twitter.svg" alt="Image">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <img src="~/web/images/svg-icon/linkedin.svg" alt="Image">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <img src="~/web/images/svg-icon/instagram.svg" alt="Image">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Area -->
+    <!-- Start Copyright Area -->
+    <div class="copy-right-area">
+        <div class="container">
+            <p>© Bexi is Proudly Owned by <a href="https://envytheme.com/" target="_blank">EnvyTheme</a></p>
+        </div>
+    </div>
+    <!-- End Copyright Area -->
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class="ri-arrow-up-s-fill"></i>
+        <i class="ri-arrow-up-s-fill"></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Footer End -->
+
+    <script>
+        $(document).ready(function () {
+            var login_token = "0";
+        });
+        
+        $(document).on('click', ".btn-add-subscribe", function (e) {
+            e.preventDefault();
+            var email = $('.add-subscribe').val();
+            //alert("yes");
+            if (email != '') {
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "debug": false,
+                    "positionClass": "toast-bottom-right",
+                }
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: "http://127.0.0.1:8000/api/subscribe",
+                    data: {
+                        email: email,
+                    },
+                    success: function (response) {
+
+                        if (response.status == 1) {
+                            toastr.success(response.message);
+
+                        } else {
+
+                            toastr.error(response.message['email']);
+                        }
+                        $('.add-subscribe').val('');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        toastr.error("Status: " + textStatus + " Service Not Working!");
+                    } 
+                });
+            }
+            else {
+                toastr.error("Enter Email");
+            }
+        });
+
+        $(document).on('click', ".login-submit-btn", function (e) {
+            e.preventDefault();
+            var email = $('#login-form-email').val();
+            var password = $('#login-form-password').val();
+            console.log("here", email, password);
+            //alert("yes");
+            if (email != '' && password != '') {
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "debug": false,
+                    "positionClass": "toast-bottom-right",
+                }
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: "http://127.0.0.1:8000/api/login",
+                    data: {
+                        email: email,
+                        password: password,
+                    },
+                    success: function (response) {
+
+                        if (response.access_token) {
+                            toastr.success("Login successfully");
+                            var tocken = response.access_token;
+                            console.log(tocken);
+                            var url = "https://localhost:44361/Index/Login_pro/1?val1=" + tocken;
+                            window.location.replace(url);
+
+                        } else {
+
+                            toastr.error("Invalid Account");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        toastr.error("Status: " + textStatus + " Service Not Working!");
+                    }
+                });
+            }
+            else {
+                toastr.error("Enter Email & password");
+            }
+        });
+
+        $(document).on('click', ".user-logout-btn", function (e) {
+            e.preventDefault();
+            var tokent = $('#sec-token').val();
+            console.log("here logout");
+
+            $.ajax({
+                type: 'get',
+                dataType: 'json',
+                url: "http://127.0.0.1:8000/api/logout",
+                headers: { Authorization: "Bearer " + tokent},
+                data: { },
+                success: function (response) {
+
+                    toastr.success("Logout successfully");
+                    var url = "https://localhost:44361/Index/Login_pro/1?val1=0";
+                    window.location.replace(url);
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    toastr.error("Status: " + textStatus + " Service Not Working!");
+                }
+            });
+        });
+
+        $(document).on('click', '.add-to-cart', function () {
+
+            var id = $(this).data('id');
+            var tokent = $('#sec-token').val();
+            var quantity = 1;
+            if ($('#product-qnt').length) {
+                
+                quantity = $(this).closest('tr').find('#product-qnt').val();
+            }
+            console.log(tokent,id);
+            if (tokent == "0") {
+
+                var url = "https://localhost:44361/Index/User_Login";
+                window.location.replace(url);
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "http://127.0.0.1:8000/api/addtocart",
+                    headers: { Authorization: "Bearer " + tokent },
+                    data: {
+                        'id': id,
+                        'quantity': quantity,
+                    },
+                    success: function (data) {
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true,
+                            "debug": false,
+                            "positionClass": "toast-bottom-right",
+                        }
+                        toastr.success(data.message);
+                        if (data.Status == 2) {
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

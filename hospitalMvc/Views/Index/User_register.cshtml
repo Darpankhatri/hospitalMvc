@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "User_register";
+    Layout = "~/Views/web/_LayoutPage1.cshtml";
+}
+
+<main>
+
+    <!-- Start Page Banner Area -->
+    <div class="page-banner-area bg-22 pt-100">
+        <div class="container">
+            <div class="page-banner-content">
+                <h2>My Account</h2>
+                <ul>
+                    <li>
+                        <a href="/Index">
+                            <i class="ri-home-8-line"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <span>Register</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner Area -->
+    <!-- Start My Account Area -->
+    <div class="my-account-area ptb-100">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-6">
+                    <form class="login-register-form-area login" method="POST" action="">
+                        
+                        <h2>Register</h2>
+                        <div class="form-group">
+                            <label>USERNAME</label>
+                            <input id="name" name="name" type="text" class="form-control" placeholder="name" required>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label>EMAIL</label>
+                            <input id="email" type="email" class="form-control" name="email" placeholder="info@bexi.com" required>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label>PASSWORD</label>
+                            <input id="password" type="password" class="form-control" name="password" placeholder="******" required>
+                            
+                        </div>
+
+
+                        <div class="d-flex align-items-center">
+                            <button type="submit" class="default-btn me-3 register-submit-btn">
+                                Register now
+                            </button>
+                            <p>Don’t have an account? <a href="/Index/User_Login">Login</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End My Account Area -->
+
+
+</main>
+
+<script>
+    $(document).on('click', ".register-submit-btn", function (e) {
+        e.preventDefault();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var name = $('#name').val();
+        console.log("here", email, password);
+        //alert("yes");
+        if (email != '' && password != '' && name != '') {
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: "http://127.0.0.1:8000/api/register",
+                data: {
+                    name: name,
+                    email: email,
+                    password: password,
+                },
+                success: function (response) {
+
+                    if (response.access_token) {
+                        toastr.success("Register successfully");
+                        var tocken = response.access_token;
+                        console.log(tocken);
+                        var url = "https://localhost:44361/Index/Login_pro/1?val1=" + tocken;
+                        window.location.replace(url);
+
+                    } else {
+
+                        toastr.error("Invalid Detail");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    toastr.error("Status: " + textStatus + " Service Not Working!");
+                }
+            });
+        }
+        else {
+            toastr.error("Fill All required fields");
+        }
+    });
+</script>

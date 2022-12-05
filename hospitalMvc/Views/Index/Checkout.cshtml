@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/web/_LayoutPage1.cshtml";
+}
+
+<main>
+
+    <!-- Start Page Banner Area -->
+    <div class="page-banner-area bg-19 pt-100">
+        <div class="container">
+            <div class="page-banner-content">
+                <h2>Checkout</h2>
+                <ul>
+                    <li>
+                        <a href="/Index">
+                            <i class="ri-home-8-line"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <span>Checkout</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner Area -->
+    <!-- Start Checkout Area -->
+    <section class="checkout-area ptb-100">
+        <div class="container">
+            <div class="checkout-wrap">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <form>
+
+                            <div class="billing-details">
+                                <h3 class="title">Billing details</h3>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>NAME</label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>EMAIL</label>
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="info@baxi.com" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>PHONE</label>
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="**********" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>ADDRESS</label>
+                                            <input type="text" class="form-control" id="address" name="address"
+                                                   placeholder="Your address here..." required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-6">
+                                        <div class="form-group">
+                                            <label>CITY</label>
+                                            <input type="text" id="city" name="city" class="form-control" placeholder="Enter City" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>STATE</label>
+                                            <input type="text" id="state" class="form-control" name="state" placeholder="Enter State" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>POSTCODE/ZIP</label>
+                                            <input type="number" id="zip" class="form-control" name="zip" placeholder="" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6 checkout-btn" style="display:none;">
+                                <div class="faq-accordion">
+                                    <button class="default-btn placeorder-btn">
+                                        <i class="fa fa-spinner fa-spin place-order-spin" style="display:none;"></i> Place order
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="order-details">
+                            <div class="cart-totals">
+                                <h3>Checkout summary</h3>
+
+                                <ul class="cart-totals-wrap">
+                                    <li>Subtotal <span>$<span class="cart-total">0.00</span></span></li>
+                                    <li>Shipping <span>$0.00</span></li>
+                                    <li>Total <span>$0.00</span></li>
+                                    <li><b>Payable Total</b> <span><b>$<span class="cart-total">0.00</span></b></span></li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Checkout Area -->
+
+</main>
+
+<style>
+    .buttonload {
+        background-color: #04AA6D; /* Green background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 16px; /* Some padding */
+        font-size: 16px /* Set a font size */
+    }
+    .place-order-spin{
+        margin-right: 10px;
+        margin-top: 1px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        console.log("here");
+        var tokent = $('#sec-token').val();
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            headers: { Authorization: "Bearer " + tokent },
+            url: "http://127.0.0.1:8000/api/checkout",
+            data: { },
+            success: function (response) {
+                if (response.Status == 1) {
+
+                    $('.checkout-btn').show();
+                    $('.cart-total').text(response.total+".00");
+                    console.log("checkout");
+                }
+                else {
+                    toastr.error(response.message);
+                    var url = "https://localhost:44361/Index/Product";
+                    window.location.replace(url);
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.placeorder-btn', function (e) {
+        e.preventDefault();
+        
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        var address = $('#address').val();
+        var city = $('#city').val();
+        var state = $('#state').val();
+        var zip = $('#zip').val();
+        console.log("place Order");
+
+        if (name == '' || email == '' || phone == '' || address == '' || city == '' || state == '' || zip == '') {
+            toastr.error('Fill All Required Field!');
+        }
+        else {
+            var tokent = $('#sec-token').val();
+            if (tokent == "0") {
+
+                var url = "https://localhost:44361/Index/User_Login";
+                window.location.replace(url);
+            }
+            else {
+                $('.place-order-spin').show();
+                $(this).prop('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "http://127.0.0.1:8000/api/place-order",
+                    headers: { Authorization: "Bearer " + tokent },
+                    data: {
+                        'name': name,
+                        'email': email,
+                        'phone': phone,
+                        'address': address,
+                        'city': city,
+                        'state': state,
+                        'zip': zip,
+                    },
+                    success: function (data) {
+                        toastr.options = {
+                            "closeButton": true,
+                            "progressBar": true,
+                            "debug": false,
+                            "positionClass": "toast-bottom-right",
+                        }
+                        toastr.success(data.message);
+                        if (data.Status == 1) {
+
+                            var url = "https://localhost:44361/Index/Index";
+                            window.location.replace(url);
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                        $('.place-order-spin').hide();
+                        $(this).prop('disabled', false);
+                    }
+                });
+            }
+        }
+        
+    });
+
+
+</script>

@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/web/_LayoutPage1.cshtml";
+}
+<main>
+
+    <!-- Start Page Banner Area -->
+    <div class="page-banner-area bg-18 pt-100">
+        <div class="container">
+            <div class="page-banner-content">
+                <h2>Cart</h2>
+                <ul>
+                    <li>
+                        <a href="/Index">
+                            <i class="ri-home-8-line"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <span>Cart</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner Area -->
+    <!-- Start Cart Area -->
+    <section class="cart-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="cart-wrap">
+                        <form class="cart-controller">
+                            <div class="cart-table table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Remove</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Subtotal</th>
+                                            <th scope="col">Update</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="product-add-here">
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </form>
+
+                        
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="cart-totals">
+                        <h3 class="cart-checkout-title">Cart Totals</h3>
+
+                        <div class="cart-totals-wrap">
+                            <ul>
+                                <li>Subtotal <span>$<span class="cart-total">0.00</span></span></li>
+                                <li>Shipping <span>$<span>0</span>.00</span></li>
+                                <li>Total <span>$<span>0</span>.00</span></li>
+                                <li><b>Payable Total</b> <span><b>$<span class="cart-total">0.00</span></b></span></li>
+                            </ul>
+
+                            <a href="/Index/Checkout" class="default-btn active btn-checkout" style="display:none;">
+                                Proceed to checkout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Cart Area -->
+
+</main>
+
+
+<script>
+    $(document).ready(function () {
+        console.log("here");
+        var tokent = $('#sec-token').val();
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            headers: { Authorization: "Bearer " + tokent },
+            url: "http://127.0.0.1:8000/api/cart",
+            data: { },
+            success: function (response) {
+                if (response.Status == 1) {
+                    $('#product-add-here').html(response.body);
+                    $('.btn-checkout').show();
+                    $('.cart-total').text(response.total+".00");
+                    console.log("Cart");
+                }
+                else {
+                    toastr.error(response.message);
+                }
+            }
+        });
+    });
+    
+
+    $(document).on('click', '.remove-to-cart', function () {
+
+        var id = $(this).data('id');
+        var tokent = $('#sec-token').val();
+        console.log("remove");
+        if (tokent == "0") {
+
+            var url = "https://localhost:44361/Index/User_Login";
+            window.location.replace(url);
+        }
+        else {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "http://127.0.0.1:8000/api/delcart",
+                headers: { Authorization: "Bearer " + tokent },
+                data: {
+                    'id': id,
+                },
+                success: function (data) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "debug": false,
+                        "positionClass": "toast-bottom-right",
+                    }
+                    if (data.Status == 1) {
+
+                        toastr.success(data.message);
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                    location.reload();
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+
+    $(document).on('click', '.minus-btn', function () {
+        var qnt_inp = $(this).closest('.product-quantity').find('#product-qnt');
+        var val = parseInt(qnt_inp.val());
+        if (val > 1) {
+            qnt_inp.val(val - 1);
+        }
+    });
+    $(document).on('click', '.plus-btn', function () {
+        var qnt_inp = $(this).closest('.product-quantity').find('#product-qnt');
+        var max_val = qnt_inp.attr('max');
+        var val = parseInt(qnt_inp.val());
+
+        if (val < max_val) {
+            qnt_inp.val(val + 1);
+        }
+    });
+</script>

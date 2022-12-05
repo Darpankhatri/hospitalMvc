@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/web/_LayoutPage1.cshtml";
+}
+<main>
+
+    <!-- Start Page Banner Area -->
+    <div class="page-banner-area bg-23 pt-100">
+        <div class="container">
+            <div class="page-banner-content">
+                <h2>Contact Us</h2>
+                <ul>
+                    <li>
+                        <a href="/Index">
+                            <i class="ri-home-8-line"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <span>Contact Us</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner Area -->
+    
+    <!-- Start Contact Area -->
+    <div class="contact-area pb-100">
+        <div class="container">
+            <div class="contact-form">
+                <h3>Send message</h3>
+
+                <form id="iiiii">
+                    <!--csrf-->
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>NAME</label>
+                                <input type="text" name="name" id="name" class="form-control" required
+                                       data-error="Please enter your name" placeholder="Edgar">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>EMAIL</label>
+                                <input type="email" name="email" id="email" class="form-control" required
+                                       data-error="Please enter your email" placeholder="info@bexi.com">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>PHONE</label>
+                                <input type="text" name="phone" id="phone_number" required
+                                       data-error="Please enter your number" class="form-control"
+                                       placeholder="***********">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>SUBJECT</label>
+                                <input type="text" name="subject" id="msg_subject" class="form-control" required
+                                       data-error="Please enter your subject" placeholder="write subject here...">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>YOUR MESSAGE</label>
+                                <textarea name="message" class="form-control" id="message" cols="30" rows="6" required
+                                          data-error="Write your message" placeholder="write message here...."></textarea>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12 text-center">
+                            <button type="button" class="default-btn btn-send-message active">
+                                Send message
+                            </button>
+                            <div id="msgSubmit" class="h3 text-center hidden"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact Area -->
+
+
+</main>
+
+<script>
+        $(document).on('click', ".btn-send-message", function (e) {
+            e.preventDefault();
+            console.log("here");
+            var email = $('#email').val();
+            var name = $('#name').val();
+            var phone = $('#phone_number').val();
+            var subject = $('#msg_subject').val();
+            var message = $('#message').val();
+
+            //alert("yes");
+            if (email != '' && name != '' && phone != '' && subject != '' && message != '') {
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "debug": false,
+                    "positionClass": "toast-bottom-right",
+                }
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: "http://127.0.0.1:8000/api/message",
+                    data: {
+                        email: email,
+                        name: name,
+                        phone: phone,
+                        subject: subject,
+                        message: message
+                    },
+                    success: function (response) {
+
+                        if (response.status == 1) {
+                            toastr.success(response.message);
+                            //console.log(response.message);
+
+                        } else {
+
+                            toastr.error(response.message);
+                            //console.log(response.message);
+                        }
+                        $("#iiiii")[0].reset();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        toastr.error("Status: " + textStatus + "Error: " + errorThrown);
+                    } 
+                });
+            }
+            else {
+                toastr.error("Fill all Required Fields");
+            }
+        });
+</script>
+
